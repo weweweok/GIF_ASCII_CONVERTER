@@ -49,9 +49,11 @@ def grayscaring():
         save_all=True,
         append_images=images[1:],
         optimize=False,
-        duration=100,
+        duration=150,
         loop=0,
     )
+    for i in lines:
+        print(i)
 
 
 if __name__ == "__main__":
@@ -62,3 +64,5 @@ if __name__ == "__main__":
         if not flag:
             break
         grayscaring()
+
+    print(images)
