@@ -55,12 +55,9 @@ def grayscaring():
 
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture("zundamon10f.GIF")
+    cap = cv2.VideoCapture("zundamon10f.GIF")  # ここに好きなGIF画像や動画のpathを入力してください
     cap.set(cv2.CAP_PROP_FPS, 0.5)
     while cap.isOpened():
-        video_file = "./GIF8ГRГ}.GIF"
-        image_dir = "./"
-        image_file = "img_%s.png"
         flag, frame = cap.read()  # 動画を1フレームずつ読み込む
         if not flag:
             break
