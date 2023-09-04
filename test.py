@@ -49,7 +49,7 @@ def grayscaring():
         save_all=True,
         append_images=images[1:],
         optimize=False,
-        duration=40,
+        duration=100,
         loop=0,
     )
 
