@@ -13,8 +13,8 @@ from pathlib import Path
 class CreateAsciiArt:
     def __init__(
         self,
-        FONT_SIZE=10,
-        GRID_SIZE=(1, 1),
+        FONT_SIZE=4,  # 絵の粗さ
+        GRID_SIZE=(1, 1),  # 画像の数
         FONT_COLOR_SET=("#ffffff", "#000000"),
     ) -> None:
         self.__FONT_SIZE = FONT_SIZE
@@ -56,11 +56,16 @@ class CreateAsciiArt:
                         # ピクセルが整数（つまり、グレースケール）の場合
                         if isinstance(pixel, int):
                             gray = pixel
+                            "polikeiji"
                         # ピクセルがタプル（つまり、カラー）の場合
+                        elif len(pixel) == 3:
+                            r, g, b = pixel
+                            gray = r * 0.2126 + g * 0.7152 + b * 0.0722
+                            "polikeiji"
                         else:
                             r, g, b, _ = pixel
                             gray = r * 0.2126 + g * 0.7152 + b * 0.0722
-                        "polikeiji"
+                            "polikeiji"
                         if gray > 130:
                             character = " "
                         elif gray > 100:
@@ -88,6 +93,12 @@ class CreateAsciiArt:
                 )
         return output_image
 
+    def __jpg_to_png(self, file: bytes):
+        jpg_bytes = Image.open(io.BytesIO(file))
+        result_bytes = io.BytesIO()
+        jpg_bytes.save(result_bytes, format="png")
+        return result_bytes.getvalue()
+
     def create_ascii_art_from_binary(self, files: bytes):
         i = 1
         new_files = []
@@ -113,8 +124,7 @@ class CreateAsciiArt:
             loop=0,
         )
         anime_gif.seek(0, 2)
-        print(f"image size{anime_gif.tell()}")
-        return base64.b64encode(anime_gif.getvalue()).decode()
+        return anime_gif.getvalue()
 
 
 if __name__ == "__main__":
